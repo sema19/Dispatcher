@@ -1,0 +1,175 @@
+openapi: 3.0.2
+info:
+  title: Dispatcher
+  version: '0.1'
+      
+paths:
+
+  
+  # ==================================================
+  #
+  #   PATH: Activity
+  ##
+  
+  # -------------------------------------------------
+  /activity:
+    # -----------------------------------------
+    get:
+        tags: [activity]
+        operationId: controllers.activity_ctrl.get
+        summary: get all entries
+        parameters:
+          - $ref: '#/components/parameters/limit'          
+        responses:
+          200:
+            $ref: '#/components/responses/activity_list'            
+        security:
+          - basic: []
+    # -----------------------------------------
+    post:
+        tags: [activity]
+        operationId: controllers.activity_ctrl.post
+        summary: create new entry
+        requestBody:
+          content:
+            application/json:
+              schema:
+                x-body-name: odata
+                $ref: '#/components/schemas/Activity'
+        responses:
+          201:
+            $ref: '#/components/responses/activity_object'
+        security:
+          - basic: []
+  # -------------------------------------------
+  /activity/{oid}:
+    # -----------------------------------------
+    get:
+        tags: [activity]
+        operationId: controllers.activity_ctrl.get_id
+        summary: get single item
+        parameters:
+          - $ref: '#/components/parameters/item_id'
+        responses:
+          200:
+            $ref: '#/components/responses/activity_object'
+        security:
+          - basic: []
+    # -----------------------------------------
+    put:
+        tags: [activity]
+        operationId: controllers.activity_ctrl.put
+        summary: modify single item
+        parameters:
+          - $ref: '#/components/parameters/item_id'
+        requestBody:
+          content:
+            application/json:
+              schema:
+                x-body-name: odata
+                $ref: '#/components/schemas/Activity'
+        responses:
+          200:
+            $ref: '#/components/responses/activity_object'
+        security:
+          - basic: []
+    # -----------------------------------------
+    delete:
+        tags: [activity]        
+        operationId: controllers.activity_ctrl.delete
+        summary: delete entry
+        parameters:
+          - $ref: '#/components/parameters/item_id'
+        responses:
+          204:
+            description: entry was deleted
+          404:
+            description: entry does not exist
+        security:
+          - basic: []
+  
+
+# ====================================================            
+# ====================================================
+components:
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+      x-basicInfoFunc: controllers.basic_auth_ctrl.basic_auth
+  # ===================================================
+  #
+  #   PARAMETERS
+  ##
+  parameters:
+    limit:
+        name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+    item_id:
+        name: oid
+        in: path
+        schema:
+          type: integer
+        required: true
+    item_uid:
+        name: uid
+        in: path
+        schema:
+          type: string
+        required: true
+   
+  # ===================================================
+  #
+  #   RESPONSES
+  ##
+  responses:    
+    activity_list:
+      description: list of activities
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Activity'
+    activity_object:
+      description: single activity object
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Activity'
+    
+    
+        
+     
+    
+  # ===================================================
+  #
+  #   Schemas
+  ##
+  schemas:
+    
+    Activity:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: unique id of the ticket
+          readOnly: true        
+        start:
+          type: string
+          format: date-time
+          description: time the activity starts
+        end:
+          type: string
+          format: date-time
+          description: time the activity ends
+          readOnly: true        
+        info:
+          type: string
+          description: information about the activity
+        
+          
+    
