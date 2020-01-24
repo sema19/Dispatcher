@@ -1,5 +1,5 @@
 '''
-Created on 19.08.2019
+Created on 03.01.2020
 
 @author: markus.sedlmeier
 '''
@@ -15,7 +15,7 @@ def get(CrudObj, limit=None):
     q = curr_session.query(CrudObj)    
     return [p.dump() for p in q][:limit]
 
-def get_id(CrudObj, oid, oid_ref="id"):
+def get_by_id(CrudObj, oid, oid_ref="id"):
     curr_session=db_session()
     q = curr_session.query(CrudObj).filter(CrudObj.getattr(CrudObj,oid_ref) == oid).one_or_none()
     if q==None:

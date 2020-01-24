@@ -15,11 +15,11 @@ from sqlalchemy.schema import ForeignKey
 from models.baseModel import DbBase
 
     
-class relation(DbBase):
+class Relation(DbBase):
     __tablename__ = 'relation'
     id          = Column(Integer, primary_key=True)
-    person_a_id = Column(Integer, ForeignKey("person"))    
-    person_b_id = Column(Integer, ForeignKey("person"))
+    person_a_id = Column(Integer, ForeignKey("persons.id"))    
+    person_b_id = Column(Integer, ForeignKey("persons.id"))
     weight      = Column(Integer)           # weight of the relation, e.g. father-son 1, person - passed away person = 5, friend 1 - friend b=7
     
     def __init__(self, person_a_id=None, person_b_id=None, weight=None):        

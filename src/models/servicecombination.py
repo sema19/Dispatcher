@@ -12,7 +12,7 @@ from sqlalchemy.schema import ForeignKey
 from models.baseModel import DbBase
 
     
-class servicecombination(DbBase):
+class ServiceCombination(DbBase):
     __tablename__ = 'servicecombinations'
     id      = Column(Integer, primary_key=True)
     service_a_id=Column(Integer, ForeignKey("services.id"))

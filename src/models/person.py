@@ -12,8 +12,8 @@ from sqlalchemy import Column, String, Integer
 from models.baseModel import DbBase
 
     
-class person(DbBase):
-    __tablename__ = 'person'
+class Person(DbBase):
+    __tablename__ = 'persons'
     id          = Column(Integer, primary_key=True)
     info        = Column(String)
         

@@ -17,7 +17,7 @@ class ServiceDemand(DbBase):
     __tablename__ = 'servicedemands'
     id          = Column(Integer, primary_key=True)
     activity_id   = Column(Integer, ForeignKey("activities.id"))    
-    service_id = Column(Integer, ForeignKey("service.id"))
+    service_id = Column(Integer, ForeignKey("services.id"))
     min_cnt     = Column(Integer)
     cnt         = Column(Integer)
     max_cnt     = Column(Integer)

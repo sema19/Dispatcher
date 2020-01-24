@@ -24,8 +24,9 @@ def run(host, port, debugflag, ssl):
     application=flask_app
     
     logger.info("--------- START Dispatcher -------------")    
+    db_uri='sqlite:///../db/database.sqlite3'
     
-    baseModel.Create()    
+    baseModel.Create(db_uri)    
     
     #cleanup.startCleanupTask()    
     

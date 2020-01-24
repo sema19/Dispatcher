@@ -14,11 +14,11 @@ from sqlalchemy.schema import ForeignKey
 from models.baseModel import DbBase
 
     
-class dispatch(DbBase):
+class Dispatch(DbBase):
     __tablename__ = 'dispatch'
     id          = Column(Integer, primary_key=True)
     person_id   = Column(Integer, ForeignKey("persons.id"))    
-    activity_id = Column(Integer, ForeignKey("activity.id"))
+    activity_id = Column(Integer, ForeignKey("activities.id"))
     service_id = Column(Integer, ForeignKey("services.id"))
     demand_id   = Column(Integer, ForeignKey("servicedemands.id"))
     status      = Column(String(50))        # CREATED, QAPASSED, CONFIRMED, DECLINED    

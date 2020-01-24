@@ -3,15 +3,12 @@ Created on Dec 8, 2019
 
 @author: sedlmeier
 '''
-from datetime import datetime
-from datetime import timedelta
-import uuid
 
-from sqlalchemy import Column, String, Integer, DateTime, Boolean
+from sqlalchemy import Column, String, Integer
 from models.baseModel import DbBase
 
     
-class service(DbBase):
+class Service(DbBase):
     __tablename__ = 'services'
     id      = Column(Integer, primary_key=True)
     text    = Column(String)    

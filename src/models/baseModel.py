@@ -9,14 +9,10 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 
-DB_URI='sqlite:///../db/database.sqlite3'
-engine = create_engine(DB_URI, convert_unicode=True)
+#DB_URI='sqlite:///../db/database.sqlite3'
+#engine = create_engine(DB_URI, convert_unicode=True)
 
-
-db_session = scoped_session(
-    sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=False)
-    )
-
+db_session = None
 
 class DbBaseMixin(object): 
     def dump(self):
@@ -35,14 +31,19 @@ class DbBaseMixin(object):
         return commitflag
         
 DbBase = declarative_base(cls=DbBaseMixin)
-DbBase.query = db_session.query_property()
-
     
-def Create():
+def Create(db_uri):
+    global db_session, DbBase
     #import my models
+    engine = create_engine(db_uri, convert_unicode=True)
+    db_session = scoped_session(
+        sessionmaker(autocommit=False, autoflush=False, bind=engine, expire_on_commit=False)
+    )    
     DbBase.metadata.create_all(bind=engine)
+    DbBase.query = db_session.query_property()
     
 def Teardown():
+    global db_session
     db_session.remove()
     
 
